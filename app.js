@@ -1,11 +1,16 @@
-// ============================================
 // CONFIG SUPABASE
-// ============================================
-const SUPABASE_URL = 'https://adhhjwlpdxoxbpqwlyih.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkaGhqd2xwZHhveGJwcXdseWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDA3MDcsImV4cCI6MjA5NDAxNjcwN30.gDRMkUJltt-6iBOInDRYUhe9w1J5aDWCEs1wWQh3xCw';
+const SUPABASE_URL = 'https://XXXX.supabase.co'
+const SUPABASE_KEY = 'eyJhbGc...TON_ANON_KEY...'
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
 
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+// TEST connexion
+async function testConnexion() {
+  const { data, error } = await supabase.from('stats').select('*')
+  if (error) console.error('❌ Erreur:', error)
+  else console.log('✅ Supabase connecté:', data)
+}
+testConnexion()
+
 
 // ============================================
 // STATE
