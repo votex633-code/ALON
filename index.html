@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTA MIND — Pôle Événementiel</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">GTA<span>MIND</span></div>
+  <ul class="nav-links">
+    <li><a href="#events">Événements</a></li>
+    <li><a href="#classement">Classement</a></li>
+    <li><a href="#equipe">Équipe</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+  </ul>
+  <div class="nav-btns">
+    <button class="btn-connexion" onclick="openModal('login')">👤 CONNEXION</button>
+    <button class="btn-staff" onclick="openModal('staff')">🛡️ STAFF</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ PÔLE ÉVÉNEMENTIEL OFFICIEL</div>
+    <h1 class="hero-title">GTA<br><span>MIND</span></h1>
+    <p class="hero-sub">PÔLE ÉVÉNEMENTIEL</p>
+    <p class="hero-desc">Chaque event est une <em>légende</em>.<br>Rejoins la compétition, écris ton histoire sur les routes de <em class="pink">Los Santos</em>.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">📅 VOIR LES EVENTS</button>
+      <button class="btn-outline" onclick="openModal('login')">➜ MON ESPACE</button>
+    </div>
+    <div class="hero-online"><span class="dot-green"></span> <span id="onlineCount">250</span> joueurs en ligne sur GTA Mind</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-icon">🚩</span><div><div class="stat-num" id="stat-events">0</div><div class="stat-label">EVENTS ORGANISÉS</div></div></div>
+  <div class="stat-item"><span class="stat-icon">👥</span><div><div class="stat-num" id="stat-participants">0</div><div class="stat-label">PARTICIPANTS</div></div></div>
+  <div class="stat-item"><span class="stat-icon">🏆</span><div><div class="stat-num" id="stat-gagnants">0</div><div class="stat-label">GAGNANTS</div></div></div>
+  <div class="stat-item"><span class="stat-icon">⭐</span><div><div class="stat-num" id="stat-satisfaction">0</div><div class="stat-label">SATISFACTION</div></div></div>
+</div>
+
+<!-- PROCHAIN EVENT -->
+<section class="next-event-section">
+  <div class="section-badge">🔴 PROCHAIN EVENT</div>
+  <h2 class="section-title">NE RATE PAS LE <span>PROCHAIN RENDEZ-VOUS</span></h2>
+  <div class="next-event-card" id="nextEventCard">
+    <div class="live-badge">● BIENTÔT EN DIRECT</div>
+    <h3 id="nextTitle">GRAND PRIX DE LOS SANTOS — SAISON 3</h3>
+    <div class="next-meta">
+      <span>🚗 Course Automobile</span>
+      <span>|</span>
+      <span>📍 Los Santos Circuit</span>
+      <span>|</span>
+      <span>👥 32 places max</span>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="count-box"><span id="cd-days">00</span><small>JOURS</small></div>
+      <div class="count-sep">:</div>
+      <div class="count-box"><span id="cd-hours">00</span><small>HEURES</small></div>
+      <div class="count-sep">:</div>
+      <div class="count-box"><span id="cd-mins">00</span><small>MINUTES</small></div>
+      <div class="count-sep">:</div>
+      <div class="count-box"><span id="cd-secs">00</span><small>SECONDES</small></div>
+    </div>
+    <div class="progress-wrap">
+      <span>Inscriptions ouvertes</span>
+      <span class="pink" id="nextPlaces">24 / 32 places</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="nextProgress" style="width:75%"></div></div>
+    <div class="next-footer">
+      <div class="next-infos">
+        <span>📅 Sam. 15 Fév — 20h00</span>
+        <span>🏆 Récompense : 50 000$</span>
+        <span>📊 Expert</span>
+      </div>
+      <button class="btn-primary" onclick="openModal('register')">S'INSCRIRE →</button>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events-section" id="events">
+  <div class="section-badge">🗓️ ÉVÉNEMENTS</div>
+  <h2 class="section-title">TOUS LES <span>EVENTS</span> À VENIR</h2>
+  <div class="filter-tabs">
+    <button class="tab active" onclick="filterEvents('tous', this)">TOUS</button>
+    <button class="tab" onclick="filterEvents('course', this)">🚗 COURSE</button>
+    <button class="tab" onclick="filterEvents('combat', this)">⚔️ COMBAT</button>
+    <button class="tab" onclick="filterEvents('rp', this)">🎭 RP SCÉNARISÉ</button>
+    <button class="tab" onclick="filterEvents('tournoi', this)">🏆 TOURNOI</button>
+  </div>
+  <div class="events-grid" id="eventsGrid">
+    <!-- Chargé via JS -->
+    <div class="loading">Chargement des events...</div>
+  </div>
+</section>
+
+<!-- CLASSEMENT -->
+<section class="classement-section" id="classement">
+  <div class="section-badge">🏆 CLASSEMENT</div>
+  <h2 class="section-title">TOP <span>JOUEURS</span></h2>
+  <div class="classement-table" id="classementTable">
+    <div class="loading">Chargement...</div>
+  </div>
+</section>
+
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('login')">✕</button>
+    <h2>CONNEXION</h2>
+    <div class="modal-tabs">
+      <button class="mtab active" onclick="switchTab('signin')">Se connecter</button>
+      <button class="mtab" onclick="switchTab('signup')">S'inscrire</button>
+    </div>
+    <div id="tab-signin">
+      <input type="email" id="login-email" placeholder="Email" class="input-field">
+      <input type="password" id="login-pass" placeholder="Mot de passe" class="input-field">
+      <button class="btn-primary full" onclick="signIn()">CONNEXION</button>
+    </div>
+    <div id="tab-signup" style="display:none">
+      <input type="text" id="reg-pseudo" placeholder="Pseudo GTA" class="input-field">
+      <input type="email" id="reg-email" placeholder="Email" class="input-field">
+      <input type="password" id="reg-pass" placeholder="Mot de passe" class="input-field">
+      <button class="btn-primary full" onclick="signUp()">CRÉER MON COMPTE</button>
+    </div>
+    <div id="auth-msg" class="auth-msg"></div>
+  </div>
+</div>
+
+<!-- MODAL STAFF -->
+<div class="modal-overlay" id="modal-staff">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('staff')">✕</button>
+    <h2>🛡️ ACCÈS STAFF</h2>
+    <input type="password" id="staff-pass" placeholder="Mot de passe staff" class="input-field">
+    <button class="btn-primary full" onclick="staffLogin()">ACCÉDER</button>
+    <div id="staff-msg" class="auth-msg"></div>
+  </div>
+</div>
+
+<!-- STAFF PANEL -->
+<div class="modal-overlay" id="modal-staffpanel">
+  <div class="modal modal-large">
+    <button class="modal-close" onclick="closeModal('staffpanel')">✕</button>
+    <h2>🛡️ PANEL STAFF</h2>
+    <h3>Créer un événement</h3>
+    <input type="text" id="ev-title" placeholder="Titre de l'event" class="input-field">
+    <select id="ev-type" class="input-field">
+      <option value="course">Course</option>
+      <option value="combat">Combat</option>
+      <option value="rp">RP Scénarisé</option>
+      <option value="tournoi">Tournoi</option>
+    </select>
+    <input type="text" id="ev-date" placeholder="Date (ex: Sam. 15 Fév — 20h00)" class="input-field">
+    <input type="text" id="ev-datetime" placeholder="DateTime ISO pour countdown (ex: 2025-02-15T20:00:00)" class="input-field">
+    <input type="number" id="ev-places" placeholder="Places max" class="input-field">
+    <input type="number" id="ev-reward" placeholder="Récompense ($)" class="input-field">
+    <select id="ev-level" class="input-field">
+      <option value="Débutant">Débutant</option>
+      <option value="Confirmé">Confirmé</option>
+      <option value="Expert">Expert</option>
+    </select>
+    <input type="text" id="ev-image" placeholder="URL image" class="input-field">
+    <input type="text" id="ev-orga" placeholder="Organisateur" class="input-field">
+    <input type="number" id="ev-reward-money" placeholder="Récompense argent" class="input-field">
+    <label style="color:#aaa;font-size:12px">Prochain event principal ?</label>
+    <input type="checkbox" id="ev-next">
+    <button class="btn-primary full" onclick="createEvent()" style="margin-top:16px">PUBLIER L'EVENT</button>
+    <div id="staff-event-msg" class="auth-msg"></div>
+  </div>
+</div>
+
+<!-- MODAL REGISTER EVENT -->
+<div class="modal-overlay" id="modal-register">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('register')">✕</button>
+    <h2>S'INSCRIRE À L'EVENT</h2>
+    <p style="color:#aaa;margin-bottom:16px">Tu dois être connecté pour t'inscrire.</p>
+    <button class="btn-primary full" onclick="closeModal('register');openModal('login')">SE CONNECTER</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
